@@ -1,0 +1,127 @@
+/* Reset et variables */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --text-color: #333;
+    --bg-light: #ecf0f1;
+    --shadow: 0 2px 5px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    flex: 1;
+    background-color: var(--bg-light);
+}
+
+/* Navigation */
+nav {
+    background-color: white;
+    width: 250px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+}
+
+nav h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    margin-bottom: 1rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+nav ul li a:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateX(10px);
+}
+
+/* Contenu principal */
+main {
+    flex: 1;
+    padding: 2rem;
+    background-color: white;
+    margin: 1rem;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+main h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+main p {
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+/* Media Queries pour la responsivité */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    nav ul li a:hover {
+        transform: translateX(0);
+        background-color: var(--secondary-color);
+    }
+
+    main {
+        margin: 0;
+        border-radius: 0;
+    }
+}
