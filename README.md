@@ -3,16 +3,16 @@ Rédiger un cahier des charges pour le développement d'une application mobile e
 ---
 
 ### **1. Introduction**
-- **Contexte** : Expliquez pourquoi l'application est nécessaire et présentez le problème à résoudre ou l'opportunité à saisir.
-- **Objectifs du projet** : Décrivez ce que vous espérez accomplir avec l'application.
-- **Enjeux** : Précisez les enjeux stratégiques, techniques, et commerciaux du projet.
+- **Contexte** : Le directeur nous donne carte blanche pour améliorer la vie du campus.
+- **Objectifs du projet** : Cette application a pour but de digitaliser l'école et faciliter la communication au sein du campus.
+- **Enjeux** : Pour ce projet, nous devrons nous former à certaines technologies, accepter les échecs et apprendre à les corriger.
 
 ---
 
 ### **2. Présentation de l'application**
-- **Description générale** : Résumez brièvement le fonctionnement et les fonctionnalités principales de l'application.
-- **Public cible** : Identifiez les utilisateurs visés (âge, localisation, besoins, habitudes).
-- **Plateformes visées** : Précisez si l'application sera développée pour Android, iOS, ou les deux.
+- **Description générale** : La première version de cette application permettra aux membres de l'administration next-u, du BDE, et ambassadeurs de poster des informations.
+- **Public cible** : Corps éducatif next-u et élèves.
+- **Plateformes visées** : Cette première version est disponible que sur le web.
 
 ---
 
@@ -28,58 +28,34 @@ Rédiger un cahier des charges pour le développement d'une application mobile e
 ---
 
 ### **4. Design et ergonomie**
-- **Identité visuelle** : Mentionnez si un style graphique existe déjà ou si une nouvelle identité doit être créée.
-- **Wireframes/Mockups** : Ajoutez des schémas ou des descriptions pour représenter l’interface utilisateur.
-- **Accessibilité** : Spécifiez si l'application doit respecter des normes d'accessibilité (pour les personnes en situation de handicap).
+- **Identité visuelle** : Même identitée visuelle que celle de next-u, du bleu, du noir et du blanc.
 
 ---
 
 ### **5. Aspects techniques**
-- **Technologies** : Précisez les frameworks, langages de programmation ou outils envisagés (React Native, Flutter, Swift, etc.).
-- **Intégrations** : Indiquez les APIs ou systèmes tiers à intégrer (par ex., Google Maps, Stripe, Firebase).
-- **Base de données** : Mentionnez le type de base de données à utiliser (SQL, NoSQL).
-- **Sécurité** : Décrivez les mesures à prendre pour protéger les données des utilisateurs.
+- **Technologies** : Utilisation de Vue.Js pour le front-end et Node.Js pour le back-end.
+- **Intégrations** : Création et intégration de notre propre API Rest.
+- **Base de données** : Base de donnée en SQL via PostgreSQL.
 
 ---
 
 ### **6. Planning et livrables**
-- **Étapes clés** : Décomposez le projet en phases (analyse, conception, développement, tests, déploiement).
-- **Livrables attendus** : Précisez les documents ou versions à fournir à chaque étape (prototype, version alpha, version finale).
-- **Délais** : Indiquez les dates ou durées prévues pour chaque étape.
+- **Étapes clés** :
+1- Rédiger le cahier des charges de l’application 
+2 - Faire le diagramme des cas d’utilisations
+3 - Faire le diagramme des classes
+4 - Faire l’api rest ainsi que sa documentation 
+5 - Faire Une application en vue-js qui permet de communiquer avec l’api en utilisant l’option api
+  
+- **Délais** : Jusqu'à mi-mars
 
 ---
 
-### **7. Budget**
-- **Estimation des coûts** : Précisez les coûts prévus pour le développement, le design, les tests, et le déploiement.
-- **Ressources nécessaires** : Listez les besoins en personnel (développeurs, designers, chefs de projet).
+### **Annexes**
+- **Références visuelles** : Figma
+- **Diagramme des cas d'utilisation** : Explication des termes techniques ou spécifiques.
+- **Diagramme des classes** : Spécifications techniques, captures d’écran, ou guides de style.
+- **Documentation de l'API** : Spécifications techniques, captures d’écran, ou guides de style.
 
 ---
 
-### **8. Critères de succès**
-- **Indicateurs clés de performance (KPIs)** : Par exemple, nombre de téléchargements, taux de rétention, retour utilisateur.
-- **Objectifs mesurables** : Définissez les résultats attendus pour considérer le projet comme réussi.
-
----
-
-### **9. Contraintes**
-- **Techniques** : Limites des appareils, compatibilité avec les versions des systèmes d’exploitation.
-- **Légales** : Respect des réglementations (RGPD, CCPA).
-- **Temporelles** : Délais stricts à respecter.
-- **Financières** : Limites budgétaires.
-
----
-
-### **10. Annexes**
-- **Références visuelles** : Exemples d’applications similaires ou inspirations.
-- **Glossaire** : Explication des termes techniques ou spécifiques.
-- **Documents complémentaires** : Spécifications techniques, captures d’écran, ou guides de style.
-
----
-
-### Conseils pour la rédaction
-1. **Soyez clair et précis** : Utilisez un langage accessible pour les développeurs et les parties prenantes.
-2. **Priorisez** : Classez les fonctionnalités en fonction de leur importance (indispensables, optionnelles).
-3. **Collaborez** : Impliquez toutes les parties prenantes (marketing, technique, direction) dans la rédaction.
-4. **Évitez les ambiguïtés** : Spécifiez clairement chaque exigence pour éviter les malentendus.
-
-En structurant ainsi votre cahier des charges, vous faciliterez la communication avec l'équipe de développement et assurerez une meilleure compréhension des besoins du projet.
