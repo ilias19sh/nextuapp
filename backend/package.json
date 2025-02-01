@@ -1,0 +1,24 @@
+{
+  "name": "backend_nextu",
+  "version": "1.0.0",
+  "description": "back-end de notre application next-u qui nous permettra d'afficher les posts de utilisateurs ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "ilias",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "node": "^22.13.0",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sqlite3": "^5.1.7",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
