@@ -1,0 +1,235 @@
+:root {
+  --primary-blue: #1877f2;
+  --primary-dark-blue: #1664d9;
+  --dark: #18191a;
+  --light: #ffffff;
+  --gray: #f0f2f5;
+  --gradient-blue: linear-gradient(45deg, #1877f2, #149af0, #0cc0df);
+  --gradient-red: linear-gradient(45deg, #ff416c, #ff4b2b);
+  --gradient-green: linear-gradient(45deg, #00b09b, #96c93d);
+  --gradient-purple: linear-gradient(45deg, #8e2de2, #e94057);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: var(--gray);
+  background-image: radial-gradient(
+      circle at 100% 0%,
+      rgba(24, 119, 242, 0.08) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(24, 119, 242, 0.08) 0%,
+      transparent 40%
+    );
+  min-height: 100vh;
+}
+
+.navbar {
+  background: var(--light);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(24, 119, 242, 0.1);
+}
+
+.navbar h1 {
+  background: var(--gradient-blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.container {
+  max-width: 680px;
+  margin: 90px auto 20px;
+  padding: 20px;
+}
+
+.post {
+  background-color: var(--light);
+  border-radius: 16px;
+  margin-bottom: 25px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transform: translateY(0);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gradient-blue {
+  background: var(--gradient-blue);
+}
+
+.gradient-red {
+  background: var(--gradient-red);
+}
+
+.gradient-green {
+  background: var(--gradient-green);
+}
+
+.gradient-purple {
+  background: var(--gradient-purple);
+}
+
+.post-info h3 {
+  color: var(--dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.post-info span {
+  color: #65676b;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.post-content {
+  margin-bottom: 20px;
+  color: var(--dark);
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.post-image:hover {
+  transform: scale(1.01);
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 10px;
+}
+
+.action-button {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  border: none;
+  background: none;
+  color: #65676b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-button i {
+  font-size: 1.2rem;
+}
+
+.action-button:hover {
+  background: var(--gradient-blue);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(24, 119, 242, 0.2);
+}
+
+.like-count {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.action-button:hover .fa-heart {
+  color: #ff4b4b;
+  animation: heartBeat 0.3s ease;
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .post {
+    padding: 20px;
+    border-radius: 12px;
+  }
+}
+
+/* Animation de chargement progressive */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.post:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.post:nth-child(3) {
+  animation-delay: 0.4s;
+}
