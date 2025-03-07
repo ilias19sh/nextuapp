@@ -1,6 +1,6 @@
 <script>
 import { defineComponent } from "vue";
-import { getUserById, getPublication, updatePublication, deletePublication } from "@/api/NextuApi";
+import { getUserById, getPublication, updatePublication, deletePublication, getImage } from "@/api/NextuApi";
 
 export default defineComponent({
   name: "ProfilView",
@@ -15,6 +15,7 @@ export default defineComponent({
       userBadges: [],
       keyword: ["ambassador", "BDE", "admin", "special"],
       admin: false,
+      userImages: [],
     };
   },
   async mounted() {
@@ -22,22 +23,34 @@ export default defineComponent({
     this.user = await getUserById(profilId);
     const posts = await getPublication();
     this.userPosts = posts.filter((post) => post.user_id === parseInt(profilId));
+    
+    // Récupération des informations utilisateur pour vérifier les permissions
     this.userId = parseInt(localStorage.getItem("userId")) || 0;
     this.type = await getUserById(this.userId);
+    
+    // Détermination des badges et permissions de l'utilisateur connecté
     if (this.type && this.type[0]) {
       if (this.type[0].Student && Array.isArray(this.type[0].Student.badges)) {
         this.userBadges = this.type[0].Student.badges;
       } else if (this.type[0].type === "admin") {
         this.userBadges = [this.type[0].type];
         this.admin = true;
-        console.log("badges : ", this.type[0].type);
       }
     }
+    
+    // Vérification si l'utilisateur consulte son propre profil
     this.monProfil = this.userId === parseInt(profilId);
-    console.log("mon profil : ", monProfil);
-    console.log("profil : ", profilId);
-    console.log("le user :", this.user);
-    console.log("posts -> :", this.userPosts);
+    
+    // Récupération des images via l'API dédiée
+    const allImages = await getImage();
+    if (allImages) {
+      this.userImages = allImages;
+      
+      // Possibilité d'utiliser une image comme photo de profil si l'utilisateur n'en a pas
+      if (this.user && this.user[0] && !this.user[0].pdpurl && this.userImages.length > 0) {
+        console.log("Images disponibles pour l'utilisateur:", this.userImages);
+      }
+    }
   },
   methods: {
     getUser(post) {
@@ -123,6 +136,14 @@ export default defineComponent({
       } catch (error) {
         console.error(error);
       }
+    },
+    displayUserImages() {
+      if (!this.userImages || this.userImages.length === 0) {
+        return "Aucune image disponible";
+      }
+      
+      // Extraction des URLs d'images pour affichage
+      return this.userImages.map(img => img.url || img.path).join(", ");
     },
   },
   computed: {

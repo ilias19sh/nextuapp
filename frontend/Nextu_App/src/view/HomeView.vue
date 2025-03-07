@@ -7,6 +7,8 @@ import {
   PostPublication,
   getUserById,
   deletePublication,
+  getImage,
+  postImage
 } from "@/api/NextuApi";
 import { formatDistanceToNow } from "date-fns";
 export default defineComponent({
@@ -26,6 +28,8 @@ export default defineComponent({
       pollOption: "",
       showImageInput: false,
       showPollInput: false,
+      imageFile: null,
+      images: [],
     };
   },
   async mounted() {
@@ -44,62 +48,90 @@ export default defineComponent({
     }
     console.log("posts : ", this.posts);
     console.log("users :", this.users);
+    this.images = await getImage();
+    console.log("images récupérées:", this.images);
   },
   methods: {
     toggleImageInput() {
-  this.showImageInput = !this.showImageInput;
-  this.showPollInput = false;
-  this.poll = []; // On vide le sondage si on choisit une image
-
-},
+      this.showImageInput = !this.showImageInput;
+      this.showPollInput = false;
+      this.poll = [];
+    },
     togglePollInput() {
       this.showPollInput = !this.showPollInput;
       this.showImageInput = false;
-      this.imageUrl = null; // On enlève l’image si on choisit un sondage
+      this.imageUrl = null; // On enlève l'image si on choisit un sondage
     },
     handleFileUpload(event) {
-  const file = event?.target?.files?.[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    this.imageUrl = reader.result; // Stocke l'image encodée en Base64
-    console.log("Image encodée en Base64 :", this.imageUrl);
-  };
-},
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      
+      // Stocke le fichier pour l'envoi ultérieur via l'API
+      this.imageFile = file;
+      
+      // Crée une prévisualisation de l'image avant envoi
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        console.log("Image prête pour l'envoi");
+      };
+    },
     addPollOption() {
-      // Vérifier que pollOption est défini et non vide avant d'utiliser trim
       if (this.pollOption && this.pollOption.trim() && this.poll.length < 4) {
         this.poll.push(this.pollOption.trim());
-        this.pollOption = ""; // Réinitialiser pollOption après l'ajout
+        console.log('reponse : ',this.poll)
+        this.pollOption = ""; 
       }
     },
     removePollOption(index) {
       this.poll.splice(index, 1);
     },
     async submitPost() {
-      const newPost = {
-        "description": this.description, // Assurez-vous que vous avez une variable "description"
-        "user_id": this.userId, // Assurez-vous que userId est correctement défini
-        "type": this.showImageInput ? "image" : this.showPollInput ? "poll" : "text", // Déterminer le type basé sur l'entrée
-        "urlmedia": this.imageUrl || null, // Si une image est sélectionnée, on l'ajoute, sinon on met null
-        "title": this.description, // Le title est égal à la description
-        "reponse": this.poll.length ? this.poll : null, // Si un sondage est créé, on ajoute les réponses, sinon on met null
-      };
-
-      console.log("Nouveau post:", newPost);
       try {
+        let mediaUrl = null;
+        
+        // Si une image est sélectionnée, on l'envoie d'abord via l'API dédiée
+        if (this.imageUrl && this.imageFile) {
+          const imageData = {
+            imageUrl: [this.imageFile],
+            name: `post_${this.userId}_${Date.now()}`, // Nom unique basé sur l'ID utilisateur et timestamp
+            age: "0" // Champ obligatoire pour l'API
+          };
+          
+          const uploadResult = await postImage(imageData);
+          if (uploadResult && uploadResult.newImage) {
+            mediaUrl = uploadResult.newImage.url; // Récupère l'URL de l'image téléchargée
+          }
+        }
+        
+        // Construction de l'objet post avec les données appropriées
+        const newPost = {
+          "description": this.description,
+          "user_id": this.userId,
+          "type": this.showImageInput ? "image" : this.showPollInput ? "Sondage" : "text",
+          "urlmedia": mediaUrl || this.imageUrl,
+          "title": this.description,
+          "reponse": this.poll || null // Inclut les options de sondage si présentes
+        };
+        
+        console.log("Nouveau post:", newPost);
         await PostPublication(newPost);
-        alert("Bien publié"); // Marque le vote dans le localStorage
+        alert("Bien publié");
+        
+        // Réinitialisation des champs après publication réussie
+        this.description = "";
+        this.imageUrl = null;
+        this.imageFile = null;
+        this.poll = [];
+        this.showImageInput = false;
+        this.showPollInput = false;
+        
+        // Rafraîchir les publications pour afficher le nouveau post
+        this.posts = await getPublication();
       } catch (error) {
         console.error("Erreur lors de la publication :", error);
       }
-      this.description = ""; // Réinitialise la description
-      this.imageUrl = null; // Réinitialise l'image
-      this.poll = []; // Réinitialise le sondage
-      this.showImageInput = false; // Cache l'input image
-      this.showPollInput = false; // Cache l'input sondage
     },
     getUser(post) {
       // Vérifier si 'this.users' est défini et contient des éléments avant de chercher l'utilisateur
@@ -119,9 +151,9 @@ export default defineComponent({
         return;
       }
 
-      // Assure que users_id est un tableau valide
+      
       if (!Array.isArray(reponse.users_id)) {
-        reponse.users_id = []; // Initialise si nécessaire
+        reponse.users_id = []; 
       }
 
       if (localStorage.getItem("HasVoted") === reponse.id) {
@@ -134,19 +166,19 @@ export default defineComponent({
         return;
       }
 
-      // Ajoute l'ID de l'utilisateur à la liste des votes
+      
       reponse.users_id.push(this.userId);
 
       const postData = {
         reponse_id: reponse.id,
         user_id: this.userId,
-        users_id: reponse.users_id, // Met à jour la liste des users_id
+        users_id: reponse.users_id,
       };
 
       try {
         await updatePublication(post.id, postData);
         alert("Vote enregistré !");
-        localStorage.setItem("HasVoted", reponse.id); // Marque le vote dans le localStorage
+        localStorage.setItem("HasVoted", reponse.id); 
       } catch (error) {
         console.error("Erreur lors du vote :", error);
       }
@@ -211,11 +243,11 @@ export default defineComponent({
     <div class="options">
       <button @click="toggleImageInput" :disabled="poll.length > 0">
         <i class="fas fa-image"></i>
-        <!-- Icône pour ajouter une image -->
+        
       </button>
       <button @click="togglePollInput" :disabled="imageUrl">
         <i class="fas fa-poll"></i>
-        <!-- Icône pour créer un sondage -->
+        
       </button>
     </div>
 
@@ -284,10 +316,9 @@ export default defineComponent({
         </div>
         <div v-else>
           <div v-for="(reponse, i) in post.Sondages[0].Reponses" :key="i">
-            <div class="sondage-button">
-              <button @click="vote(post, reponse)">
+            <div class="sondage-button"  @click="vote(post, reponse)">
                 {{ reponse.text }}
-              </button>
+
             </div>
           </div>
         </div>
