@@ -1,5 +1,4 @@
-Rédiger un cahier des charges pour le développement d'une application mobile est une étape essentielle pour garantir le succès du projet. Voici les étapes et les sections clés à inclure :
-
+Présentation de notre réseau social Next-u
 ---
 
 ### **1. Introduction**
@@ -17,14 +16,15 @@ Rédiger un cahier des charges pour le développement d'une application mobile e
 ---
 
 ### **3. Fonctionnalités**
-- **Liste des fonctionnalités principales** : Décrivez chaque fonctionnalité avec un niveau de détail suffisant. Exemple :
+- **Liste des fonctionnalités principales** :
   - Page d'accueil.
-  - Authentification (connexion, inscription, récupération de mot de passe).
+  - Authentification (connexion, inscription).
   - Gestion de profil utilisateur.
-  - Notifications push.
-  - Paiement en ligne (si applicable).
-- **Fonctionnalités secondaires** : Ajoutez les fonctionnalités moins prioritaires qui pourront être développées ultérieurement.
-
+  - Page utilisateur
+  - Publication de post
+  - Suppression de post
+  - Création de Users/Admin
+  - Suppression de Users/Admin
 ---
 
 ### **4. Design et ergonomie**
@@ -52,10 +52,9 @@ Rédiger un cahier des charges pour le développement d'une application mobile e
 ---
 
 ### **Annexes**
-- **Références visuelles** : Figma
-- **Diagramme des cas d'utilisation** : Explication des termes techniques ou spécifiques.
-- **Diagramme des classes** : Spécifications techniques, captures d’écran, ou guides de style.
-- **Documentation de l'API** : Spécifications techniques, captures d’écran, ou guides de style.
+- **Diagramme des cas d'utilisation** : [Explication des termes techniques ou spécifiques.](https://drive.google.com/file/d/1SshVpTCGXpw7gQMuFzBOldLLCyqZUG5b/view?usp=sharing)
+- **Diagramme des classes** : [Spécifications techniques, captures d’écran, ou guides de style.](https://drive.google.com/file/d/1R5-EG3fqzAQ4Tp8ncMV6QC-u6zE4z6wI/view?usp=sharing)
+- **Documentation de l'API** : Accessible via la route, une fois l'application clonée : localhost:3000/api-docs
 
 ---
 
